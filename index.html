@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Paolo Gabriele Sfredda (paologabrielesfredda.it)">
+    <meta name="copyright" content="Copyright &copy; 2021 Paolo Gabriele Sfredda">
+    <meta name="keywords" content="parser generator, PEG, JavaScript, inform 6">
+    <meta name="description" content="This is a testing page for PEG.js use directly for inform 6 grammar.">
+    <meta name="meta-lang" content="ITalian">
+    <title>PEG.js rules for inform 6 grammar</title>
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+    <script type="text/javascript" src="./vendor/pegjs/peg-0.10.0.min.js"></script>
+    <script type="text/javascript" src="./js/libs.js"></script>
+    <script type="text/javascript" src="./js/system.js"></script>
+    <script type="text/javascript" src="./js/rules.js"></script>
+    <script type="text/javascript" src="./js/lang.js"></script>
+    <script type="text/javascript" src="./js/main.js"></script>
+</head>
+
+<body>
+    <div id="head">
+        <h1>PEG.js examples about Inform 6</h1>
+        <h5>2021, by Paolo Gabriele Sfredda</h5>
+        <h5><em>italian version</em></h5>
+    </div>
+    <div id="upper">
+        <div id="content">
+            <form onsubmit="return onSubmit(showResult, showError)">
+                <button type="button" value="" onclick="return resetInput()"><b>C</b></button>
+                <label for="input">></label>
+                <input type="text" id="input" autofocus placeholder="Scrivi la frase..." />
+            </form>
+
+            <div id="outputP">
+                <h3>Output</h3>
+                <div id="outputC"></div>
+            </div>
+            <div id="errorsP">
+                <h3>Error</h3>
+                <div id="errorsC"></div>
+            </div>
+        </div>
+        <div id="worldP">
+            <h3 id="worldT"></h3>
+            <div id="worldC"></div>
+        </div>
+    </div>
+    <div id="verbsP">
+        <h3 id="verbsT">Verb definitions</h3>
+        <div id="verbsC"></div>
+    </div>
+
+    <script type="text/javascript">
+        setDivs({
+            input: document.getElementById("input"),
+            output: {
+                panel: document.getElementById("outputP"),
+                content: document.getElementById("outputC"),
+            },
+            errors: {
+                panel: document.getElementById("errorsP"),
+                content: document.getElementById("errorsC"),
+            },
+            world: {
+                panel: document.getElementById("worldP"),
+                title: document.getElementById("worldT"),
+                content: document.getElementById("worldC"),
+            },
+            verbs: {
+                panel: document.getElementById("verbsP"),
+                title: document.getElementById("verbsT"),
+                content: document.getElementById("verbsC"),
+            }
+
+        })
+    </script>
+</body>

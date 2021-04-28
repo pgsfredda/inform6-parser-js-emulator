@@ -1,0 +1,197 @@
+:root {
+    --head-height: 112px;
+    --upper-height: calc(77vh - var(--head-height));
+    --title-height: 30px;
+    --title-padding: 10px;
+    --rule-dim: 20px;
+    --content-width: 65vw;
+    --content-height: calc(var(--upper-height) - 2*var(--title-padding) - var(--rule-dim));
+    --form-height: 40px;
+}
+
+body {
+    margin: 0px;
+    font-family: "Trebuchet MS", lucida, sans-serif;
+    line-height: 1.5;
+    color: #2b2b2b;
+    background-color: rgb(100, 100, 100);
+}
+
+body h1 {
+    color: #d4d4d4;
+    font-variant: small-caps;
+    margin: 0;
+    padding: 0 0.5vw;
+}
+
+body h5 {
+    color: #afafaf;
+    font-variant: small-caps;
+    margin: 0 0 1em 0;
+    padding: 0 0.5vw;
+}
+
+#head {
+    height: var(--head-height);
+}
+
+#upper {
+    min-height: var(--upper-height);
+}
+
+#content {
+    margin: 0;
+    padding: var(--title-padding);
+    width: var(--content-width);
+    height: var(--content-height);
+    float: left;
+    background-image: url('images/Hand drawn Trizbort cover.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+}
+
+#content form {
+    margin: 0;
+    height: var(--form-height);
+}
+
+#content form input {
+    line-height: 25px;
+    font-family: "Courier";
+    font-size: 1em;
+    font-weight: bold;
+    width: 90%;
+    border-color: transparent;
+}
+
+#content form input:focus {
+    outline: none;
+}
+
+#content form button {
+    padding: 9px 5px;
+    height: 3em;
+}
+
+#content div h3 {
+    font-family: "Trebuchet MS", lucida, sans-serif;
+    font-weight: bold;
+    margin: 0;
+}
+
+#phraseF:focus {
+    outline: none;
+}
+
+#outputC h4 {
+    margin: 6px 0 0 0;
+    font-family: "Trebuchet MS", lucida, sans-serif;
+    font-weight: bold;
+    font-variant: small-caps;
+}
+
+#outputC {
+    font-family: "Trebuchet MS", lucida, sans-serif;
+    font-weight: normal;
+    overflow: scroll;
+    height: calc(var(--content-height) - 2*var(--title-padding) - var(--form-height));
+    color: green;
+}
+
+#outputC pre {
+    margin: 0;
+}
+
+.functerr {
+    color: #921a1a;
+}
+
+#errorP div {
+    color: #921a1a;
+}
+
+.statusOK {
+    background: seagreen;
+    color: whitesmoke;
+}
+
+.statusWA {
+    background: orange;
+    color: black;
+}
+
+.statusKO {
+    background: #921a1a;
+    color: whitesmoke;
+}
+
+#worldP {
+    margin: 0px;
+    padding: 0px;
+    height: calc(var(--upper-height) - var(--rule-dim));
+    width: calc(100vw - var(--content-width) - 2*var(--title-padding) - var(--rule-dim));
+    float: right;
+    color: black;
+    font-weight: 800;
+    background-color: #fefae0
+}
+
+#worldT {
+    margin: 0;
+    padding: var(--title-padding);
+    height: var(--title-height);
+    background-color: #faedcd;
+    font-variant: small-caps;
+}
+
+#worldC {
+    height: calc(var(--upper-height) - var(--title-height) - 2*var(--title-padding) - var(--rule-dim));
+    overflow: scroll;
+}
+
+#worldP div h3 {
+    font-family: "Trebuchet MS", lucida, sans-serif;
+    font-weight: bold;
+    margin: 0;
+}
+
+#verbsP {
+    height: calc(100vh - var(--upper-height) - var(--head-height));
+    margin: 0;
+    padding: 0;
+    background-color: #e9edc9
+}
+
+#verbsT {
+    margin: 0;
+    padding: var(--title-padding);
+    height: var(--title-height);
+    background-color: #ccd5ae;
+    font-variant: small-caps;
+}
+
+#verbsC {
+    padding: var(--title-padding);
+    height: calc(100vh - var(--upper-height) - var(--head-height) - var(--title-height) - 4*var(--title-padding));
+    overflow: scroll;
+}
+
+span.tabspace {
+    padding-left: 15px;
+}
+
+table {
+    font-family: Courier New;
+    border-spacing: 0;
+}
+
+td {
+    border-bottom: 1px dotted black;
+}
+
+table th {
+    padding-top: 5px;
+    text-align: left;
+    font-weight: normal;
+}
