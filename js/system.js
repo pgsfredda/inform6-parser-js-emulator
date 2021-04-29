@@ -9,10 +9,22 @@ var wholeWord = {};
 var curr = {};
 var last = {};
 
-var compassValues = [];
+var compassValues = {};
 
 function compass(noun) {
-    var res = ((noun) && (compassValues.indexOf(noun.noun) >= 0));
+    var res = '';
+
+    if ((noun) && (noun.noun)) {
+        for (const key in compassValues) {
+            if (compassValues.hasOwnProperty.call(compassValues, key)) {
+                const element = compassValues[key];
+                if ((Array.isArray(element)) && (element.indexOf(noun.noun) >= 0)) {
+                    res = key;
+                    break;
+                }
+            }
+        }
+    }
 
     //console.log('compass', compassValues, noun, res);
 
@@ -432,7 +444,7 @@ function generate(verbs, rulesName) {
 function getActionNeededList(verbs) {
     var res = '';
 
-    verbs.forEach(v => v.patterns.forEach(p => res += `function ${p.action}(params) {return params;}\n`));
+    verbs.forEach(v => v.patterns.forEach(p => { res += (typeof window[p.action] != 'function') ? `function ${p.action}(params) { return params; }\n` : '' }));
 
     return res;
 }
@@ -458,7 +470,7 @@ function Strong(params) {
 }
 
 function Go(params) {
-    return getActor(params) + ((params && params.noun) ? 'va a ' + params.noun.noun : 'non capisco dove debba andare');
+    return getActor(params) + ((params && params.noun) ? 'va verso ' + compass(params.noun) : 'non capisco dove debba andare');
 }
 
 function Remove(params) {
@@ -513,3 +525,33 @@ function Score(params) { return 'Punteggio non calcolato'; }
 function FullScore(params) { return 'Punteggio pieno non calcolato'; }
 
 function Quit(params) { return 'Attività conclusa'; }
+
+function Restore(params) { return params; }
+
+function Restart(params) { return params; }
+
+function Verify(params) { return params; }
+
+function Save(params) { return params; }
+
+function ScriptOff(params) { return params; }
+
+function ScriptOn(params) { return params; }
+
+function LMode3(params) { return params; }
+
+function LMode2(params) { return params; }
+
+function LMode1(params) { return params; }
+
+function Pronouns(params) { return params; }
+
+function NotifyOn(params) { return params; }
+
+function NotifyOff(params) { return params; }
+
+function Version(params) { return params; }
+
+function Places(params) { return params; }
+
+function Objects(params) { return params; }

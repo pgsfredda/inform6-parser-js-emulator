@@ -38,6 +38,8 @@ function showVerbs() {
     verbs.forEach(v => {
         var tab = (x) => `<span class="tabspace">${x}</span>`;
 
+        v.words = v.words || '*'; //if omitted the 'words' field
+
         res += '<tr><th colspan="2"><span>' + (typeof v.words === 'string' ? '<em>No verb</em>' : '<strong>Verb' + (v.meta ? ' meta' : '') + '</strong> ' + v.words.reduce((p, c) => p + (p ? ', ' : '') + '\'' + c + '\'', '')) + '</span></th></tr>';
         res += v.patterns.reduce((p, c) => p + `<tr><td>${tab('*')}${(c.tokens)?tab(c.tokens.reduce((pp, cc) => pp + (pp ? ' ' : '') + (typeof cc === 'string'?cc.replace(/"/g, '\''): cc[Object.keys(cc)[0]]) , '')):''}</td><td>${tab('->')}${tab(c.action)}${c.reverse?' reverse': ''}</td></tr>`, '');
     });
@@ -117,6 +119,6 @@ function onSubmit(showResult, showError) {
     return false;
 }
 
-//console.log(rules);
+console.log(rules);
 //console.log(getObjsInScope());
 //console.log(getActionNeededList(verbs));

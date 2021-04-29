@@ -52,7 +52,7 @@ To define a verb you have to supply the follow informations:
 }
 ```
 ### Meta
-This is an otional flag. You can omit *meta* or set its value to `false`. Otherwise you can set its value to `true` to tell the system the verb is a *meta verb* (see [DM4 Inform 6 Manual][LINK-DM4] for other informations).
+This is an optional flag. You can omit *meta* or set its value to `false`. Otherwise you can set its value to `true` to tell the system the verb is a *meta verb* (see [DM4 Inform 6 Manual][LINK-DM4] for other informations).
 ### Words
 This is an array of string delimited with a single apostrophe. These are multi choices to define the same verb with a given pattern.
 ### Patterns
@@ -90,8 +90,8 @@ Verb meta 'score', 'punteggio'
 For all token options and semanthic see [DM4 Inform 6 Manual][LINK-DM4].
 
 The verb definition order define the priority of trying apply the words patterns.   
-The pattern order is relevant for the priority of tring apply the token patterns.   
-Always put more complete (longest) patterns before (see the example below).  
+The pattern order is relevant for the priority of trying apply the token patterns.   
+Always put more complete and accurate (longest) patterns before (see the example below).  
 The internal token order in the array is semanthic relevant.   
 
 ```js
@@ -154,7 +154,7 @@ If you want to avoid having an headache, it is very helpful to follow few simple
 
 1. use always a single apostrophe couple to delimit a token (i.e. `'noun', 'prep'`)
 1. add an internal quotation mark couple to delimit a specific string token (i.e. `'"score"'`)
-1. if you define more patterns for the same words in a single verb definition, put first the longest definition. The more precise comes first
+1. if you define more patterns for the same words in a single verb definition, put first the longest and more accurate definition. The more precise comes first
 ```js
 {
     words: ['prendi', 'trasporta', 'afferra', 'raccogli'],
@@ -179,7 +179,8 @@ If you want to avoid having an headache, it is very helpful to follow few simple
 To create a new language version
 1. create a dir under `"lang"` with the same name of language label (IT, EN, ...).
 1. create the rules definition file `./js/lang/XX/rules-XX.js` for prepositions, articles, conjunctions a decimal separator
-1. create the verbs definition file `./js/lang/XX/verbs-XX.js` 
+1. create the words definition file `./js/lang/XX/words-XX.js` for compass and other words
+1. create the verbs definition file `./js/lang/XX/verbs-XX.js` for actions activation
 1. create the world definition file `./js/lang/XX/world-XX.js`; actually the system is case-sensitive therefore `'a'` is different from `'A'`
 ## Last but not least
 This is not a complete system as a replacement for Inform 6. This is just a test environment with some useful algorithms reuseble in the complete design.   

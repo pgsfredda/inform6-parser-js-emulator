@@ -3,6 +3,7 @@ var lang = document.getElementsByName('meta-lang').length > 0 ? document.getElem
 if (lang) {
     lang = (lang + '').substr(0, 2);
     includeJS(`./js/lang/${lang}/rules-${lang}.js`);
+    includeJS(`./js/lang/${lang}/words-${lang}.js`);
     includeJS(`./js/lang/${lang}/verbs-${lang}.js`);
     includeJS(`./js/lang/${lang}/world-${lang}.js`);
 } else {
