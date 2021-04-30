@@ -119,6 +119,6 @@ function onSubmit(showResult, showError) {
     return false;
 }
 
-console.log(rules);
+//console.log(rules);
 //console.log(getObjsInScope());
 //console.log(getActionNeededList(verbs));

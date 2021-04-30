@@ -3,6 +3,8 @@
 # inform6-parser-js-emulator
 This is the first very much work-in-progress of an integration test of **[PEG.js][LINK-PEG]**, by David Majda, to simulate a parser like **[Inform6][LINK-IN6]**, by Graham Nelson, but using js/TS language.
 
+## Working version: https://creativaweb.it/parser/
+## The project
 The complete project involves the creation of a development tool for interactive fiction that reproduces the functions of Inform 6 (at least the most importants) in Typescript language.
 
 This is only the integration test environment for the use of PEG.js as parser generator in the different natural languages like english, italian, etc.   
