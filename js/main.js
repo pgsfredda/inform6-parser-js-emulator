@@ -75,9 +75,15 @@ function showError(error) {
             <p><strong>${error.name}</strong></p>
             <p><em>${error.message}</em></p>
         `;
-    if (!error.warn) divs.errors.content.innerHTML += `
-            <pre>${error?.details?.message}<br />From (l:${error?.details?.location?.start?.line}, c:${error?.details?.location?.start?.column}) to (l:${error?.details?.location?.end?.line}, c:${error?.details?.location?.end?.column})</pre>
-        `;
+    if ((!error.warn) && (error) && (error.details)) {
+        var det = error.details;
+        divs.errors.content.innerHTML += `<pre>${det.message}`;
+        if (det.location) {
+            var loc = det.location;
+            divs.errors.content.innerHTML += `<br />From (l:${loc.start.line}, c:${loc.start.column}) to (l:${loc.end.line}, c:${loc.end.column})`;
+        }
+        divs.errors.content.innerHTML += `</pre>`;
+    }
 }
 
 function getResult(resFunct, errFunct) {
