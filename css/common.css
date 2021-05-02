@@ -31,6 +31,10 @@ body h5 {
     padding: 0 0.5vw;
 }
 
+body h5 a {
+    color: #cfcfcf;
+}
+
 #head {
     height: var(--head-height);
 }
