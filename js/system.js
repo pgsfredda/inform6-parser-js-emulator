@@ -2,6 +2,8 @@ const PARSING_ERROR = 'Parsing Error';
 const GENERIC_PE = 'STUCK_PE';
 const NO_PE = '';
 
+var inlineCmp = [];
+
 var verbs = [];
 var rulesXX = '';
 var wholeWord = {};
@@ -242,7 +244,27 @@ function _actionCheck(params) {
 
     if ((params.second) && (!_tokenCheck('second', params))) return false;
 
+
     return _tokenCheck('noun', params);
+}
+
+function _resetInlineCmp() {
+    //console.log('RESET');
+    inlineCmp = [];
+    return true;
+}
+
+function _inlineSkip(w) {
+    var res = ((inlineCmp.length > 0) && (inlineCmp.findIndex((e) => (e === w)) >= 0));
+    //console.log('SKIP', inlineCmp, w, res);
+    return res;
+}
+
+function _setInlineCmp(cmp) {
+    //inlineCmp = inlineCmp.concat(c.replace(/"/g, '').split(/[ ]*\/[ ]*/));
+    inlineCmp = inlineCmp.concat(cmp.split(/[ ]*\/[ ]*/).filter((c) => { return c.search(/"/) >= 0 }).map(el => el.replace(/"/g, '')));
+    //console.log('SET', inlineCmp, cmp);
+    return true;
 }
 
 function _number(number) {
@@ -368,7 +390,7 @@ function unduplicate(tokens) {
     return tokens;
 }
 
-function generateToken(token, action, objs) {
+function generateToken(token, action, objs, cmps) {
     var tokenName;
     var tokenType;
 
@@ -389,6 +411,7 @@ function generateToken(token, action, objs) {
                 objs.push(tokenName);
                 return `${tokenName}:${capitalizeFirstLetter(tokenType)} ${spec[1]? '& { return ' + spec[1] + '(' + tokenName + ') } ': ''}`;
             default:
+                cmps.push(`& { return _setInlineCmp('${tokenName}') }`);
                 return `(${tokenName}) `;
         }
     } else {
@@ -421,13 +444,18 @@ function generate(verbs, rulesName) {
                 res += `verb:(${v.words.reduce((p, c)=> (p?p + ' / ': '') + '"' + c + '"', '')}) ${(p.tokens && p.tokens.length > 0)?'_ ':''}`;
 
             var objs = [];
+            var cmps = [];
             try {
                 if (p.tokens) unduplicate(p.tokens);
             } catch (error) {
                 throw `Verb ${JSON.stringify(v.words)}: ${error}`
             }
 
-            if (p.tokens) p.tokens.forEach(t => res += generateToken(t, p.action, objs));
+            var gen = '';
+
+            if (p.tokens) p.tokens.forEach(t => gen += generateToken(t, p.action, objs, cmps));
+
+            res += ((cmps.length > 0) ? '& { return _resetInlineCmp() } ' + cmps.join(' ') + ' ' : '') + gen;
 
             if (p.reverse) objs = objs.reverse();
 
@@ -478,7 +506,7 @@ function Remove(params) {
 }
 
 function Wear(params) {
-    return getActor(params) + ((params && params.noun) ? 'indossa ' + params.noun.noun : 'non capisco cosa debba indossare');
+    return getActor(params) + ((params && params.noun) ? 'indossa ' + params.noun.held : 'non capisco cosa debba indossare');
 }
 
 function Say(params) { return getActor(params) + 'dice: \'' + (Array.isArray(params.noun.topic) ? params.noun.topic.join(" ") : params.noun.topic) + '\''; }
@@ -555,3 +583,5 @@ function Version(params) { return params; }
 function Places(params) { return params; }
 
 function Objects(params) { return params; }
+
+function ThrowAt(params) { return params; }

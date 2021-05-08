@@ -21,7 +21,7 @@ verbs = [
     },
     {
         meta: true,
-        words: ['q', 'quit', 'die', 'uscire', 'fine', 'basta'],
+        words: ['quit', 'q', 'die', 'uscire', 'fine', 'basta'],
         patterns: [
             { action: 'Quit' },
         ]
@@ -180,7 +180,7 @@ verbs = [
         ]
     },
     {
-        words: ['metti', 'mettiti'],
+        words: ['mettiti', 'metti'],
         patterns: [
             { tokens: ['multiExcept', 'InPrep', 'noun'], action: 'Insert' },
             { tokens: ['multiExcept', 'SuPrep', 'noun'], action: 'PutOn' },
@@ -189,7 +189,40 @@ verbs = [
             { tokens: ['held'], action: 'Wear' },
         ]
     },
+    {
+        words: ['inserisci'],
+        patterns: [
+            { tokens: ['multiExcept', 'InPrep', 'noun'], action: 'Insert' },
+        ]
+    },
+    {
+        words: ['svuota'],
+        patterns: [
+            { tokens: ['noun', 'SuPrep', 'noun'], action: 'EmptyT' },
+            { tokens: ['noun'], action: 'Empty' },
 
+        ]
+    },
+    {
+        words: ['trasferisci', 'sposta'],
+        patterns: [
+            { tokens: ['noun', 'SuPrep / InPrep', 'noun'], action: 'Transfer' },
+            { tokens: ['noun'], action: 'Push' },
+
+        ]
+    },
+    {
+        words: ['lascia', 'lancia', 'abbandona', 'posa'],
+        patterns: [
+            { tokens: ['held', 'APrep / SuPrep / "contro"', 'noun'], action: 'ThrowAt' },
+            { tokens: ['multiExcept', 'InPrep', 'noun'], action: 'Insert' },
+            { tokens: ['multiExcept', 'SuPrep', 'noun'], action: 'PutOn' },
+            { tokens: ['noun=compass'], action: 'Go' },
+            { tokens: ['multiHeld'], action: 'Drop' },
+            { tokens: ['noun'], action: 'Exit' },
+
+        ]
+    },
 
     {
         patterns: [
@@ -198,49 +231,8 @@ verbs = [
     },
 
     /* 
-    Verb 'metti' 'mettiti'
-                    * held                            -> Wear
-                    * 'gi@`u'/'giu' multiheld         -> Drop
-                    * multiheld 'gi@`u'/'giu'         -> Drop
-                    * multiexcept 'dentro'/'in'/'nel'/'nello'/'nell^'/'nella'/
-                      'negli'/'nelle'/'nei' noun
-                                                     -> Insert
-                    * multiexcept 'su'/'sul'/'sullo'/'sull^'/'sulla'/'sui'/
-                      'sugli'/'sulle'/'sopra' noun 
-                                                      -> PutOn;
-    Verb 'inserisci'
-                    * multiexcept 'dentro'/'in'/'nel'/'nello'/'nell^'/'nella'/
-                      'negli'/'nelle'/'nei' noun
-                                                     -> Insert;
-    Verb 'svuota' 
-                    * noun                           -> Empty
-                    * noun 'su'/'sul'/'sullo'/'sull^'/'sulla'/'sui'/
-                      'sugli'/'sulle'/'sopra' noun
-                                                     -> EmptyT;
-    Verb 'trasferisci' 'sposta'
-                    * noun                           -> Push
-                    * noun 'su'/'sul'/'sullo'/'sull^'/'sulla'/'sui'/
-                      'sugli'/'sulle'/'sopra' noun 
-                                                     -> Transfer
-                    * noun 'dentro'/'in'/'nel'/'nello'/'nell^'/'nella'/
-                      'negli'/'nelle'/'nei' noun
-                                                     -> Transfer;
+    
 
-    [ ADirection; if (noun in compass) rtrue; rfalse; ];
-    Verb 'lascia' 'lancia' 'abbandona' 'posa'
-                    * multiheld                      -> Drop
-                    * multiexcept 'dentro'/'in'/'nel'/'nello'/'nell^'/'nella'/
-                    'negli'/'nelle'/'nei' noun
-                                                    -> Insert
-                    * multiexcept 'su'/'sul'/'sullo'/'sull^'/'sulla'/'sui'/
-                    'sugli'/'sulle'/'sopra' noun 
-                                                    -> PutOn
-                    * held 'a'/'ad'/'all^'/'allo'/'alla'/'al'/'agli'/'ai'/
-                    'alle'/'su'/'sul'/'sullo'/'sull^'/'sulla'/'sui'/
-                    'sugli'/'sulle'/'sopra'/'contro' noun 
-                                                    -> ThrowAt
-                    * noun=ADirection				 -> Go
-                    * noun 							 -> Exit;
     Verb 'dai' 'paga' 'offri' 'da'
                     * held 'a'/'ad'/'all^'/'allo'/'alla'/'al'/'agli'/'ai'/
                     'alle' creature            

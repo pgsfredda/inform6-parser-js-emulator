@@ -30,7 +30,7 @@ Punctuation = [,;.:!?]
 
 Blanks = [ \t\n\r']
 
-Word = chars: [a-zA-Zàáäèéëìíïòóöùúü\-]+ { return chars.join("") }
+Word = chars: [a-zA-Zàáäèéëìíïòóöùúü\-\']+ { return chars.join("") }
     
 Cit = ["] cit:( Punctuation / Word / Integer / Blanks )* ["] { return cit.join("") }
 
@@ -40,42 +40,17 @@ Integer = digits: [0-9]+ { return parseInt(digits.join("")) }
 
 _ "whitespace" = Blanks+
 
-Skip = Conj / ("," _*) / Art
- 
-Obj = _* (Skip)* o:(el:(!(Prep/Art/Conj) (Word / Cit)) _? { return Array.isArray(el)?el.join(""): el })+ { return o.join(" ")}
-    
-List = (Obj)+
-
 Token = t:(Word Punctuation?) _? { return t.join("") }
 
 Topic = topic:(Token+ / Cit) { return _topic(topic) }
 
-`;
+Skip = Conj / ("," _*) / Art
 
-/* TO BE INVESTIGATE FOR "multiHeld 'giù'" CASE
-
-start = Rules
-
-Punctuation = [,;.:!?]
-
-Blanks = [ \t\n\r']
-
-Word = chars: [a-zA-Zàáäèéëìíïòóöùúü\-]+ { return chars.join("") }
-    
-Cit = ["] cit:( Punctuation / Word / Integer / Blanks )* ["] { return cit.join("") }
-
-Float = float:(Integer "." Integer) { return parseFloat(float.join("")) }
-
-Integer = digits: [0-9]+ { return parseInt(digits.join("")) }
-
-_ "whitespace" = Blanks+
-
-Skip = ((("su" / "la"/"il"/ "e") _+)/"l'")
-
-Obj = obj:( Skip* w:Word { return w } ) _* { return obj }
+Obj = _* (Skip)* o:(el:(!(Prep/Art/Conj) w:(Word / Cit) ! {return _inlineSkip(w)}) _* { return Array.isArray(el)?el.join(""): el })+ { return o.join(" ")}
 
 List = Obj+
 
-Rules = "metti" _+ el:List "sulla" _+ obj:Obj { return {el, obj} } 
+`;
 
-*/
+
+// ORIGINAL: Skip = (Prep/Art/Conj/("," _*))
