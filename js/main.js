@@ -112,7 +112,7 @@ function getResult(resFunct, errFunct) {
             message: error.message,
             location: error.location
         }
-        error.message = (error.warn ? `${parsingErr.errno}${parsingErr.value? ': ' + JSON.stringify(parsingErr.value): ''}` : 'Parsing error found');
+        error.message = (error.warn ? `${parsingErr.errno}${parsingErr.value? ': ' + JSON.stringify(parsingErr.value): ''}` : `Parsing error found`);
 
         if (errFunct) showError(error);
 

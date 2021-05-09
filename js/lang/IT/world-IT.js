@@ -3,6 +3,9 @@ wholeWord = {
         'giornale odierno': {},
         'occhiali': { worn: true },
     },
+    'nano': {
+        'creature': true,
+    },
     'frutta': { edible: true },
     'ottima verdura fresca': { edible: true },
     'cappotto': { clothing: true },

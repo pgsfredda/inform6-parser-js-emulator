@@ -223,6 +223,42 @@ verbs = [
 
         ]
     },
+    {
+        words: ['dai', 'paga', 'offri', 'da'],
+        patterns: [
+            { tokens: ['held', 'APrep', 'creature'], action: 'Give' },
+            { tokens: ['APrep', 'creature', 'held'], action: 'Give', reverse: true },
+        ]
+    },
+    {
+        words: ['mostra', 'presenta'],
+        patterns: [
+            { tokens: ['held', 'APrep', 'creature'], action: 'Show' },
+            { tokens: ['APrep', 'creature', 'held'], action: 'Show', reverse: true },
+        ]
+    },
+    {
+        words: ['fai', 'fa'],
+        patterns: [
+            { tokens: ['"vedere"', 'held', 'APrep', 'creature'], action: 'Show' },
+            { tokens: ['"vedere"', 'APrep', 'creature', 'held'], action: 'Show', reverse: true },
+            { tokens: ['held', '"vedere"', 'APrep', 'creature'], action: 'Show' },
+            { tokens: ['"inventario"'], action: 'Inv' },
+            { action: 'GenericVerb' },
+        ]
+    },
+    {
+        words: ['vai', 'va', 'cammina', 'corri'],
+        patterns: [
+            { tokens: ['InPrep / APrep / "attraverso"', 'noun'], action: 'Enter' },
+            { tokens: ['SuPrep', 'noun'], action: 'Climb' },
+            { tokens: ['"ad" / "a" / "verso"', 'noun=compass'], action: 'Go' },
+            { tokens: ['"dentro"'], action: 'GoIn' },
+            { tokens: ['"fuori"'], action: 'Exit' },
+            { tokens: ['noun'], action: 'Enter' },
+            { action: 'VagueGo' },
+        ]
+    },
 
     {
         patterns: [
@@ -231,47 +267,7 @@ verbs = [
     },
 
     /* 
-    
 
-    Verb 'dai' 'paga' 'offri' 'da'
-                    * held 'a'/'ad'/'all^'/'allo'/'alla'/'al'/'agli'/'ai'/
-                    'alle' creature            
-                                                    -> Give
-                    * 'a'/'ad'/'all^'/'allo'/'alla'/'al'/'agli'/'ai'/
-                    'alle' creature held           
-                                                    -> Give reverse;
-    Verb 'mostra' 'presenta'
-                    * held 'a'/'ad'/'all^'/'allo'/'alla'/'al'/'agli'/'ai'/
-                    'alle' creature            
-                                                    -> Show
-                    * 'a'/'ad'/'all^'/'allo'/'alla'/'al'/'agli'/'ai'/
-                    'alle' creature held            
-                                                    -> Show reverse;
-    Verb 'fai' 'fa'
-                    *								 -> GenericVerb
-                    * 'inventario'	      			 -> Inv
-                    * 'vedere' held 'a'/'ad'/'all^'/'allo'/'alla'/'al'/'agli'/'ai'/
-                    'alle' creature				 -> Show
-                    * 'vedere' 'a'/'ad'/'all^'/'allo'/'alla'/'al'/'agli'/'ai'/
-                    'alle' creature held            
-                                                    -> Show reverse
-                    * held 'vedere' 'a'/'ad'/'all^'/'allo'/'alla'/'al'/'agli'/'ai'/
-                    'alle' creature				 -> Show;
-                                                
-    Verb 'vai' 'cammina' 'corri' 'va'
-                    *                                -> VagueGo
-                    * 'fuori'                        -> Exit
-                    * 'a'/'ad'/'verso' noun=ADirection
-                                                    -> Go
-                    * noun                           -> Enter 
-                    * 'dentro'                       -> GoIn
-                    * 'in'/'nel'/'nello'/'nell^'/'nella'/'nei'/
-                    'negli'/'nelle'/'dentro'/'attraverso'/
-                    'a'/'ad'/'all^'/'allo'/'alla'/'al'/'agli'/'ai'/
-                    'alle' noun
-                                                    -> Enter
-                    * 'su'/'sul'/'sullo'/'sull^'/'sulla'/'sui'/
-                    'sugli'/'sulle'/'sopra' noun	 -> Climb;
     Verb 'scendi'
                     * 'da'/'dal'/'dallo'/'dalla'/'dall^'/'dai'/
                     'dagli'/'dalle' noun           -> Exit
