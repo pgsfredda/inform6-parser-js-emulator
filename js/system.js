@@ -33,7 +33,7 @@ function compass(noun) {
     return res;
 }
 
-var parsingErr = resetErr();
+var parsingErr;
 
 function getErrValue(params, options) {
     var res = { actor: params.actor, action: params.action.name };
@@ -240,7 +240,7 @@ function _actionCheck(params) {
 
     //console.log('_actionCheck', params.actor, params.verb, params.action, params.noun, params.second);
 
-    if (!params.noun) { resetErr(); return true }
+    if (!params.noun) { return true }
 
     if ((params.second) && (!_tokenCheck('second', params))) return false;
 
@@ -439,9 +439,11 @@ function generate(verbs, rulesName) {
             res += res ? '\t/ ' : '';
             res += `actor:Actor? `;
 
+            res += '& { return _resetInlineCmp() } ';
+
             if (!v.words) res += '';
             else
-                res += `verb:(${v.words.reduce((p, c)=> (p?p + ' / ': '') + '"' + c + '"', '')}) ${(p.tokens && p.tokens.length > 0)?'_ ':''}`;
+                res += `verb:(${v.words.reduce((p, c)=> (p?p + ' / ': '') + '"' + c + '"', '')}) ${(p.tokens && p.tokens.length > 0)?'_+ ':''}`;
 
             var objs = [];
             var cmps = [];
@@ -455,7 +457,7 @@ function generate(verbs, rulesName) {
 
             if (p.tokens) p.tokens.forEach(t => gen += generateToken(t, p.action, objs, cmps));
 
-            res += ((cmps.length > 0) ? '& { return _resetInlineCmp() } ' + cmps.join(' ') + ' ' : '') + gen;
+            res += ((cmps.length > 0) ? cmps.join(' ') + ' ' : '') + gen;
 
             if (p.reverse) objs = objs.reverse();
 

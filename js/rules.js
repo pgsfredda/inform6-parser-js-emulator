@@ -40,9 +40,9 @@ Integer = digits: [0-9]+ { return parseInt(digits.join("")) }
 
 _ "whitespace" = Blanks+
 
-Token = t:(Word Punctuation?) _? { return t.join("") }
+Token = _* t:(!(Prep) w:Word Punctuation? ! {return _inlineSkip(w)} { return w }) _* { return t }
 
-Topic = topic:(Token+ / Cit) { return _topic(topic) }
+Topic = topic:(Token+ / Cit) { return _topic(topic.join(" ")) }
 
 Skip = Conj / ("," _*) / Art
 

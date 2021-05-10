@@ -7,7 +7,7 @@ function getActionNeededList(verbs) {
 }
 
 function getActor(params) {
-    return ((params && params.actor) ? params.actor + ' ' : '');
+    return ((params && params.actor) ? params.actor : '');
 }
 
 function TypeNum(params) {
@@ -23,22 +23,22 @@ function Take(params) {
 }
 
 function Strong(params) {
-    return getActor(params) + 'non dovrebbe dire le parolacce!!!';
+    return getActor(params) + ' non dovrebbe dire le parolacce!!!';
 }
 
 function Go(params) {
-    return getActor(params) + ((params && params.noun) ? 'va verso ' + compass(params.noun) : 'non capisco dove debba andare');
+    return getActor(params) + ' ' + ((params && params.noun) ? 'va verso ' + compass(params.noun) : 'non capisco dove debba andare');
 }
 
 function Remove(params) {
-    return getActor(params) + ((params && params.noun && params.second) ? 'toglie ' + params.noun.multiInside + ' da ' + params.second.noun : 'non capisco cosa voglia fare');
+    return getActor(params) + ' ' + ((params && params.noun && params.second) ? 'toglie ' + params.noun.multiInside + ' da ' + params.second.noun : 'non capisco cosa voglia fare');
 }
 
 function Wear(params) {
-    return getActor(params) + ((params && params.noun) ? 'indossa ' + params.noun.held : 'non capisco cosa debba indossare');
+    return getActor(params) + ' ' + ((params && params.noun) ? 'indossa ' + params.noun.held : 'non capisco cosa debba indossare');
 }
 
-function Say(params) { return getActor(params) + 'dice: \'' + (Array.isArray(params.noun.topic) ? params.noun.topic.join(" ") : params.noun.topic) + '\''; }
+function Say(params) { return getActor(params) + ' dice: \'' + (Array.isArray(params.noun.topic) ? params.noun.topic.join(" ") : params.noun.topic) + '\''; }
 
 
 function EnterOn(params) { return params; }
@@ -53,7 +53,11 @@ function Drop(params) { return params; }
 
 function Eat(params) { return params; }
 
-function VagueUse(params) { return 'Cosa vuoi che faccia ' + getActor(params) + 'di ' + params.noun.noun + '?' }
+function VagueUse(params) { return 'Cosa vuoi che faccia ' + getActor(params) + ' di ' + params.noun.noun + '?' }
+
+function VagueGo(params) { return 'Dove vuoi che vada ' + getActor(params) + '?' }
+
+function GenericVerb(params) { return 'Un po\' generico per ' + getActor(params) }
 
 function GoIn(params) { return params; }
 
@@ -117,8 +121,26 @@ function ThrowAt(params) { return params; }
 
 function Give(params) { return params; }
 
-function GenericVerb(params) { return params; }
+function Inv(params) { params.title = 'Inventario'.toUpperCase(); return params; }
 
-function Inv(params) { return params; }
+function InvAll(params) { params.title = 'Inventario esteso'.toUpperCase(); return params; }
+
+function InvWide(params) { params.title = 'Inventario completo'.toUpperCase(); return params; }
 
 function Climb(params) { return params; }
+
+function Look(params) { return params; }
+
+function LookUnder(params) { return params; }
+
+function Search(params) { return params; }
+
+function Consult(params) { return params; }
+
+function Open(params) { return params; }
+
+function Unlock(params) { return params; }
+
+function Lock(params) { return params; }
+
+function Close(params) { return params; }

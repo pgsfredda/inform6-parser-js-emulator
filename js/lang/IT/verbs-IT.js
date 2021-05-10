@@ -1,3 +1,8 @@
+/*
+ * KNOWN ISSUES
+ * none
+ */
+
 verbs = [
     /*
      * META VERBS - GENERAL GROUP
@@ -250,13 +255,69 @@ verbs = [
     {
         words: ['vai', 'va', 'cammina', 'corri'],
         patterns: [
+            { tokens: ['"ad" / "a" / "verso"', 'noun=compass'], action: 'Go' },
             { tokens: ['InPrep / APrep / "attraverso"', 'noun'], action: 'Enter' },
             { tokens: ['SuPrep', 'noun'], action: 'Climb' },
-            { tokens: ['"ad" / "a" / "verso"', 'noun=compass'], action: 'Go' },
             { tokens: ['"dentro"'], action: 'GoIn' },
             { tokens: ['"fuori"'], action: 'Exit' },
             { tokens: ['noun'], action: 'Enter' },
             { action: 'VagueGo' },
+        ]
+    },
+    {
+        words: ['scendi'],
+        patterns: [
+            { tokens: ['DaPrep', 'noun'], action: 'Exit' },
+            { tokens: ['noun'], action: 'Exit' },
+            { action: 'Exit' },
+        ]
+    },
+    {
+        words: ['inventario', 'inv', 'i'],
+        patterns: [
+            { tokens: ['"esteso"'], action: 'InvAll' },
+            { tokens: ['"completo"'], action: 'InvWide' },
+            { action: 'Inv' },
+        ]
+    },
+    {
+        words: ['guarda', 'vedi', 'g', 'l'],
+        patterns: [
+            { tokens: ['InPrep / SuPrep / "attraverso"', 'noun'], action: 'Search' },
+            { tokens: ['"sotto"', 'noun'], action: 'LookUnder' },
+            { tokens: ['topic', 'InPrep', 'noun'], action: 'Consult', reverse: true },
+            { tokens: ['noun'], action: 'Examine' },
+            { action: 'Look' },
+        ]
+    },
+    {
+        words: ['consulta'],
+        patterns: [
+            { tokens: ['noun', 'SuPrep', 'topic'], action: 'Consult' },
+            { tokens: ['noun', '"circa"', 'topic'], action: 'Consult' },
+        ]
+    },
+    {
+        words: ['apri', 'scopri'],
+        patterns: [
+            { tokens: ['noun', '"con" / "a"', 'held'], action: 'Unlock' },
+            { tokens: ['noun'], action: 'Open' },
+        ]
+    },
+    {
+        words: ['chiudi', 'copri'],
+        patterns: [
+            { tokens: ['noun', '"con" / "a"', 'held'], action: 'Lock' },
+            { tokens: ['noun'], action: 'Close' },
+        ]
+    },
+    {
+        words: ['entra', 'attraversa', 'visita'],
+        patterns: [
+            { tokens: ['InPrep / APrep', 'noun'], action: 'Enter' },
+            { tokens: ['"dentro"'], action: 'GoIn' },
+            { tokens: ['noun'], action: 'Enter' },
+            { action: 'GoIn' },
         ]
     },
 
@@ -268,39 +329,6 @@ verbs = [
 
     /* 
 
-    Verb 'scendi'
-                    * 'da'/'dal'/'dallo'/'dalla'/'dall^'/'dai'/
-                    'dagli'/'dalle' noun           -> Exit
-                    *                                -> Exit
-                    * noun                           -> Exit;
-
-    Verb 'inventario' 'inv' 'i//'
-                    *                                -> Inv
-                    * 'esteso'                       -> InvTall
-                    * 'completo'                     -> InvWide;
-    Verb 'guarda' 'g//' 'vedi' 'l//'
-                    *                                -> Look
-                    * noun                           -> Examine
-                    * 'dentro'/'in'/'nel'/'nello'/'nell^'/'nella'/
-                    'negli'/'nelle'/'nei'/'attraverso'/
-                    'su'/'sul'/'sullo'/'sull^'/'sulla'/'sui'/
-                    'sugli'/'sulle'/'sopra' noun
-                                                    -> Search
-                    * 'sotto' noun                   -> LookUnder;
-                    !* topic 'dentro'/'in'/'nel'/'nello'/'nell^'/'nella'/
-                    !  'negli'/'nelle'/'nei' noun
-                    !                                 -> Consult reverse;
-
-    Verb 'consulta' * noun 'circa' topic             -> Consult
-                    * noun 'su'/'sul'/'sullo'/'sull^'/'sulla'/'sui'/
-                    'sugli'/'sulle'/'sopra' topic
-                                                    -> Consult;
-    Verb 'apri' 'scopri'
-                    * noun                           -> Open
-                    * noun 'con'/'a' held            -> Unlock;
-    Verb 'chiudi' 'copri'
-                    * noun                           -> Close
-                    * noun  'con'/'a' held           -> Lock;
     Verb 'entra' 'attraversa' 'visita'
                     *                                -> GoIn
                     * 'dentro'						 -> GoIn

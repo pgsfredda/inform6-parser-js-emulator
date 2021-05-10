@@ -97,6 +97,8 @@ function getResult(resFunct, errFunct) {
 
             var parsed = parser.parse(ph);
 
+            if (parsingErr.errno !== NO_PE) throw { warn: true };
+
             showWorld();
             showVerbs();
 
@@ -125,6 +127,6 @@ function onSubmit(showResult, showError) {
     return false;
 }
 
-//console.log(rules);
+console.log(rules);
 //console.log(getObjsInScope());
 //console.log(getActionNeededList(verbs));
