@@ -273,21 +273,17 @@ verbs = [
         ]
     },
     {
+        words: ['in', 'dentro'],
+        patterns: [
+            { action: 'GoIn' },
+        ]
+    },
+    {
         words: ['inventario', 'inv', 'i'],
         patterns: [
             { tokens: ['"esteso"'], action: 'InvAll' },
             { tokens: ['"completo"'], action: 'InvWide' },
             { action: 'Inv' },
-        ]
-    },
-    {
-        words: ['guarda', 'vedi', 'g', 'l'],
-        patterns: [
-            { tokens: ['InPrep / SuPrep / "attraverso"', 'noun'], action: 'Search' },
-            { tokens: ['"sotto"', 'noun'], action: 'LookUnder' },
-            { tokens: ['topic', 'InPrep', 'noun'], action: 'Consult', reverse: true },
-            { tokens: ['noun'], action: 'Examine' },
-            { action: 'Look' },
         ]
     },
     {
@@ -320,6 +316,110 @@ verbs = [
             { action: 'GoIn' },
         ]
     },
+    {
+        words: ['siediti', 'siedi', 'sdraiati'],
+        patterns: [
+            { tokens: ['SuPrep / APrep / InPrep', 'noun'], action: 'Enter' },
+        ]
+    },
+    {
+        words: ['fuori', 'esci'],
+        patterns: [
+            { tokens: ['DaPrep', 'noun'], action: 'Exit' },
+            { action: 'Exit' },
+        ]
+    },
+    {
+        words: ['x', 'descrivi', 'controlla'],
+        patterns: [
+            { tokens: ['noun'], action: 'Examine' },
+        ]
+    },
+    {
+        words: ['leggi'],
+        patterns: [
+            { tokens: ['"circa"', 'topic', 'InPrep', 'noun'], action: 'Consult' },
+            { tokens: ['topic', 'InPrep', 'noun'], action: 'Consult' },
+            { tokens: ['noun'], action: 'Examine' },
+        ]
+    },
+    {
+        words: ['guarda', 'vedi', 'g', 'l'],
+        patterns: [
+            { tokens: ['InPrep / SuPrep / "attraverso"', 'noun'], action: 'Search' },
+            { tokens: ['"sotto"', 'noun'], action: 'LookUnder' },
+            { tokens: ['topic', 'InPrep', 'noun'], action: 'Consult', reverse: true },
+            { tokens: ['noun'], action: 'Examine' },
+            { action: 'Look' },
+        ]
+    },
+    {
+        words: ['si'],
+        patterns: [
+            { action: 'Yes' },
+        ]
+    },
+    {
+        words: ['no'],
+        patterns: [
+            { action: 'No' },
+        ]
+    },
+    {
+        words: ['spiacente', 'scusa'],
+        patterns: [
+            { action: 'Sorry' },
+        ]
+    },
+    {
+        words: ['porco', 'dannazione'],
+        patterns: [
+            { tokens: ['topic'], action: 'Strong' },
+            { action: 'Strong' },
+        ]
+    },
+    {
+        words: ['bestemmia', 'maledici'],
+        patterns: [
+            { tokens: ['topic'], action: 'Mild' },
+            { action: 'Mild' },
+        ]
+    },
+    {
+        words: ['cerca', 'trova', 'ricerca'],
+        patterns: [
+            { tokens: ['InPrep', 'noun'], action: 'Search' },
+            { tokens: ['noun'], action: 'Search' },
+        ]
+    },
+    {
+        words: ['agitati', 'agita'],
+        patterns: [
+            { tokens: ['"le mani"'], action: 'WaveHands' },
+            { tokens: ['noun'], action: 'Wave' },
+            { action: 'WaveHands' },
+        ]
+    },
+    {
+        words: ['saluta'],
+        patterns: [
+            { tokens: ['creature'], action: 'WaveHands' },
+            { action: 'WaveHands' },
+        ]
+    },
+    {
+        words: ['tira', 'trascina'],
+        patterns: [
+            { tokens: ['noun'], action: 'Pull' },
+        ]
+    },
+    {
+        words: ['premi', 'muovi', 'spingi'],
+        patterns: [
+            { tokens: ['noun', 'APrep', 'noun'], action: 'PushDir' },
+            { tokens: ['noun'], action: 'Push' },
+        ]
+    },
 
     {
         patterns: [
@@ -329,70 +429,9 @@ verbs = [
 
     /* 
 
-    Verb 'entra' 'attraversa' 'visita'
-                    *                                -> GoIn
-                    * 'dentro'						 -> GoIn
-                    * 'dentro'/'in'/'nel'/'nello'/'nell^'/'nella'/
-                    'negli'/'nelle'/'nei' noun     -> Enter
-                    * 'dentro' 'a'/'ad'/'all^'/'allo'/'alla'/'al'/'agli'/'ai'/
-                    'alle' noun                    -> Enter
-                    * noun                           -> Enter;
-    Verb 'siedi' 'siediti' 'sdraiati'               
-                    * 'su'/'sul'/'sullo'/'sull^'/'sulla'/'sui'/
-                    'sugli'/'sulle'/'sopra' noun
-                                                    -> Enter
-                    * 'a'/'ad'/'all^'/'allo'/'alla'/'al'/'agli'/'ai'/
-                    'alle' noun                    -> Enter
-                    * 'dentro'/'in'/'nel'/'nello'/'nell^'/'nella'/
-                    'negli'/'nelle'/'nei' noun
-                                                    -> Enter;
-    Verb 'in' 'dentro'
-                    *                                -> GoIn;
-    Verb 'fuori' 'esci'
-                    *                                -> Exit
-                    * 'da'/'dal'/'dallo'/'dalla'/'dall^'/'dai'/
-                    'dagli'/'dalle' noun           -> Exit;
-    Verb 'esamina' 'x//' 'descrivi' 'controlla'
-                    * noun                           -> Examine;
-    Verb 'leggi'
-                    * noun                           -> Examine
-                    * 'circa' topic 'dentro'/'in'/'nel'/'nello'/'nell^'/'nella'/
-                    'negli'/'nelle'/'nei' noun
-                                                    -> Consult
-                    * topic 'dentro'/'in'/'nel'/'nello'/'nell^'/'nella'/
-                    'negli'/'nelle'/'nei' noun
-                                                    -> Consult;
-    Verb 'si' 's@`i'
-                    *                                -> Yes;
-    Verb 'no//'
-                    *                                -> No;
-    Verb 'spiacente' 'scusa'
-                    *                                -> Sorry;
-    Verb 'merda' 'cazzo' 'dannazione' 'porco'
-                    *                                -> Strong;
-    Verb 'impreca' 'bestemmia' 'maledici'
-                    *                                -> Mild
-                    * topic                          -> Mild;
-    Verb 'cerca' 'trova' 'ricerca'
-                    * noun                           -> Search
-                    * 'dentro'/'in'/'nel'/'nello'/'nell^'/'nella'/
-                    'negli'/'nelle'/'nei' noun     -> Search;
-    Verb 'agita' 'agitati'
-                    * 								 -> WaveHands
-                    *'mani'                          -> WaveHands
-                    * noun                           -> Wave;
-    Verb 'saluta'
-                    *                                -> WaveHands
-                    * creature                       -> WaveHands;
     Verb 'imposta'
                     * noun                           -> Set
                     * noun 'to' special              -> SetTo;
-    Verb 'tira' 'trascina'
-                    * noun                           -> Pull;
-    Verb 'premi' 'muovi' 'spingi'
-                    * noun                           -> Push
-                    * noun 'a'/'ad'/'all^'/'allo'/'alla'/'al'/'agli'/'ai'/
-                    'alle' noun                    -> PushDir;
     Verb 'gira' 'ruota'
                     * noun                           -> Turn
                     * noun 'a on'/'su on'            -> Switchon

@@ -144,3 +144,19 @@ function Unlock(params) { return params; }
 function Lock(params) { return params; }
 
 function Close(params) { return params; }
+
+function Yes(params) { return params; }
+
+function No(params) { return params; }
+
+function Sorry(params) { return params; }
+
+function Mild(params) { return params; }
+
+function Wave(params) { return params; }
+
+function WaveHands(params) { return params; }
+
+function Pull(params) { return params; }
+
+function PushDir(params) { return params; }
