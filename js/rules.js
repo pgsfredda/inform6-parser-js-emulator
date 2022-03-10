@@ -23,6 +23,8 @@ MultiExcept = me:List { return _multiExcept(me) }
     
 MultiInside = mi:List { return _multiInside(mi) }
 
+Special = sp:(Cit / Topic / Number) { return _special(sp) }
+
 /*
  * GENERAL RULES
  */

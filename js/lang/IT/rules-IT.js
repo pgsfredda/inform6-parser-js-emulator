@@ -6,8 +6,8 @@ DiPrep = _* ((("dello" / "della" / "degli" / "delle" / "del" / "dei" / "di") _+)
 APrep = _* ((("allo" / "alla" / "agli" / "alle" / "al" / "ai" / "a") _+) / "all'") 
 DaPrep = _* ((("dallo" / "dalla" / "dagli" / "dalle" / "dal" / "dai" / "da") _+) / "dall'") 
 InPrep = _* ((("dentro" / "nello" / "nella" / "negli" / "nelle" / "nel" / "nei" / "in") _+) / "nell'") 
-ConPrep = _* (("col" / "coi" / "con") _+)
-SuPrep = _* ((("sopra" / "sullo" / "sulla" / "sugli" / "sulle" / "sul" / "sui") _+) / "sull'") 
+ConPrep = _* ((("col" / "coi" / "con") _+) / "coll'")
+SuPrep = _* ((("sopra" / "sullo" / "sulla" / "sugli" / "sulle" / "sul" / "sui" / "su") _+) / "sull'") 
 
 Prep = _* (DiPrep / APrep / DaPrep / InPrep / SuPrep) / (("tra" / "fra" / "per") _+)
 

@@ -1,6 +1,6 @@
 {
     "name": "inform6-parser-js-emulator",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "PEGjs integration test environment for inform6 like parser with js language",
     "main": "index.html",
     "scripts": {

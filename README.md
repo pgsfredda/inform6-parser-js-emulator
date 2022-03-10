@@ -171,19 +171,20 @@ If you want to avoid having an headache, it is very helpful to follow few simple
 1. if you have two pattern very similar but with two different preposition and the same action you can reduce them in a single pattern like `* 'noun' ('prep1' / 'prep2') 'second' -> 'action'`
 ```js
 {
-    words: ['siedi' ,'siediti', 'sdraiati' ],
+    words: ['siediti' ,'siedi', 'sdraiati' ],
     patterns: [
         { tokens: ['SuPrep / APrep', noun], action: 'Enter', reverse: false },
     ]
 }
 ```
+7. if two or more items in the words list have the same radix (i.e. `inventory`, `inv`, `i`), put always before the longest one
 ## World and Grammar
 To create a new language version
 1. create a dir under `"lang"` with the same name of language label (IT, EN, ...).
 1. create the rules definition file `./js/lang/XX/rules-XX.js` for prepositions, articles, conjunctions a decimal separator
 1. create the words definition file `./js/lang/XX/words-XX.js` for compass and other words
 1. create the verbs definition file `./js/lang/XX/verbs-XX.js` for actions activation
-1. create the world definition file `./js/lang/XX/world-XX.js`; actually the system is case-sensitive therefore `'a'` is different from `'A'`
+1. create the world definition file `./js/lang/XX/world-XX.js` for a testing world definition
 ## Last but not least
 This is not a complete system as a replacement for Inform 6. This is just a test environment with some useful algorithms reuseble in the complete design.   
 If you have any suggestions or problem reports, please, check the project [Issues][LINK-ISS] section.

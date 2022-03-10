@@ -14,10 +14,6 @@ includeJS = function(jsFile, jsCond) {
     if (jsCond) document.write('<![endif]-->');
 };
 
-function capitalizeFirstLetter(string) {
-    return string[0].toUpperCase() + string.slice(1);
-}
-
 function addClass(element, klass) {
     if (element.classList) {
         element.classList.add(klass);

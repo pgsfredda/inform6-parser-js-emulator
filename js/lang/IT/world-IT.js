@@ -1,6 +1,9 @@
 wholeWord = {
     'Player': {
         'giornale odierno': {},
+        'caramella': {
+            edible: true,
+        },
         'occhiali': { worn: true },
         'chiave': {},
     },

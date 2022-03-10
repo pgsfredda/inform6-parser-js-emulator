@@ -16,6 +16,7 @@ function resetInput() {
     initResult();
     showWorld();
     showVerbs();
+    divs.input.focus();
 }
 
 function initResult() {
@@ -94,6 +95,8 @@ function getResult(resFunct, errFunct) {
     try {
         if (ph) {
             resetErr();
+
+            ph = ph.toLowerCase();
 
             var parsed = parser.parse(ph);
 

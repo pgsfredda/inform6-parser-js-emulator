@@ -1,8 +1,3 @@
-/*
- * KNOWN ISSUES
- * none
- */
-
 verbs = [
     /*
      * META VERBS - GENERAL GROUP
@@ -147,12 +142,139 @@ verbs = [
     },
     /*
      * META VERBS - DEBUG GROUP
-     * 
-     * (TO BE DONE)
      */
 
+    {
+        meta: true,
+        words: ['trace'],
+        patterns: [
+            { tokens: ['number'], action: 'TraceLevel' },
+            { tokens: ['"off"'], action: 'TraceOff' },
+            { tokens: ['"on"'], action: 'TraceOn' },
+            { action: 'TraceOn' },
+        ]
+    },
+    {
+        meta: true,
+        words: ['actions'],
+        patterns: [
+            { tokens: ['"off"'], action: 'ActionsOff' },
+            { tokens: ['"on"'], action: 'ActionsOn' },
+            { action: 'ActionsOn' },
+        ]
+    },
+    {
+        meta: true,
+        words: ['routines', 'messages'],
+        patterns: [
+            { tokens: ['"off"'], action: 'RoutinesOff' },
+            { tokens: ['"on"'], action: 'RoutinesOn' },
+            { action: 'RoutinesOn' },
+        ]
+    },
+    {
+        meta: true,
+        words: ['timers', 'daemons'],
+        patterns: [
+            { tokens: ['"off"'], action: 'TimersOff' },
+            { tokens: ['"on"'], action: 'TimersOn' },
+            { action: 'TimersOn' },
+        ]
+    },
+    {
+        meta: true,
+        words: ['changes'],
+        patterns: [
+            { tokens: ['"off"'], action: 'ChangesOff' },
+            { tokens: ['"on"'], action: 'ChangesOn' },
+            { action: 'ChangesOn' },
+        ]
+    },
+    {
+        meta: true,
+        words: ['recording'],
+        patterns: [
+            { tokens: ['"off"'], action: 'CommandsOff' },
+            { tokens: ['"on"'], action: 'CommandsOn' },
+            { action: 'CommandsOn' },
+        ]
+    },
+    {
+        meta: true,
+        words: ['replay'],
+        patterns: [
+            { action: 'CommandsRead' },
+        ]
+    },
+    {
+        meta: true,
+        words: ['random'],
+        patterns: [
+            { action: 'Predictable' },
+        ]
+    },
+    {
+        meta: true,
+        words: ['purloin'],
+        patterns: [
+            { tokens: ['multi'], action: 'XPurloin' },
+        ]
+    },
+    {
+        meta: true,
+        words: ['abstract'],
+        patterns: [
+            { tokens: ['noun', '"to"', 'noun'], action: 'XAbstract' },
+        ]
+    },
+    {
+        meta: true,
+        words: ['tree'],
+        patterns: [
+            { tokens: ['noun'], action: 'XTree' },
+            { action: 'XTree' }
+        ]
+    },
+    {
+        meta: true,
+        words: ['goto'],
+        patterns: [
+            { tokens: ['number'], action: 'Goto' },
+        ]
+    },
+    {
+        meta: true,
+        words: ['gonear'],
+        patterns: [
+            { tokens: ['noun'], action: 'Gonear' },
+        ]
+    },
+    {
+        meta: true,
+        words: ['scope'],
+        patterns: [
+            { tokens: ['noun'], action: 'Scope' },
+            { action: 'Scope' }
+        ]
+    },
+    {
+        meta: true,
+        words: ['showobj'],
+        patterns: [
+            { tokens: ['multi'], action: 'Showobj' },
+            { action: 'Showobj' }
+        ]
+    },
+    {
+        meta: true,
+        words: ['showverb'],
+        patterns: [
+            { tokens: ['special'], action: 'Showverb' },
+        ]
+    },
+
     /*
-     * GAME VERBS
+     * PLAY VERBS
      */
 
     {
@@ -273,20 +395,6 @@ verbs = [
         ]
     },
     {
-        words: ['in', 'dentro'],
-        patterns: [
-            { action: 'GoIn' },
-        ]
-    },
-    {
-        words: ['inventario', 'inv', 'i'],
-        patterns: [
-            { tokens: ['"esteso"'], action: 'InvAll' },
-            { tokens: ['"completo"'], action: 'InvWide' },
-            { action: 'Inv' },
-        ]
-    },
-    {
         words: ['consulta'],
         patterns: [
             { tokens: ['noun', 'SuPrep', 'topic'], action: 'Consult' },
@@ -330,7 +438,7 @@ verbs = [
         ]
     },
     {
-        words: ['x', 'descrivi', 'controlla'],
+        words: ['x', 'descrivi', 'controlla', 'esamina'],
         patterns: [
             { tokens: ['noun'], action: 'Examine' },
         ]
@@ -343,17 +451,7 @@ verbs = [
             { tokens: ['noun'], action: 'Examine' },
         ]
     },
-    {
-        words: ['guarda', 'vedi', 'g', 'l'],
-        patterns: [
-            { tokens: ['InPrep / SuPrep / "attraverso"', 'noun'], action: 'Search' },
-            { tokens: ['"sotto"', 'noun'], action: 'LookUnder' },
-            { tokens: ['topic', 'InPrep', 'noun'], action: 'Consult', reverse: true },
-            { tokens: ['noun'], action: 'Examine' },
-            { action: 'Look' },
-        ]
-    },
-    {
+    /* {
         words: ['si'],
         patterns: [
             { action: 'Yes' },
@@ -364,7 +462,7 @@ verbs = [
         patterns: [
             { action: 'No' },
         ]
-    },
+    }, */
     {
         words: ['spiacente', 'scusa'],
         patterns: [
@@ -420,135 +518,271 @@ verbs = [
             { tokens: ['noun'], action: 'Push' },
         ]
     },
-
+    {
+        words: ['imposta'],
+        patterns: [
+            { tokens: ['noun', 'APrep', 'special'], action: 'SetTo' },
+            { tokens: ['noun'], action: 'Set' },
+        ]
+    },
+    {
+        words: ['attiva', 'accendi'],
+        patterns: [
+            { tokens: ['noun'], action: 'SwitchOn' },
+        ]
+    },
+    {
+        words: ['disattiva', 'spegni'],
+        patterns: [
+            { tokens: ['noun'], action: 'SwitchOff' },
+        ]
+    },
+    {
+        words: ['gira', 'ruota'],
+        patterns: [
+            { tokens: ['noun', '"su on" / "a on"'], action: 'SwitchOn' },
+            { tokens: ['noun', '"a off" / "su off"'], action: 'SwitchOff' },
+            { tokens: ['noun'], action: 'Turn' },
+        ]
+    },
+    {
+        words: ['scassina', 'sblocca'],
+        patterns: [
+            { tokens: ['noun', '"con" / "a"', 'held'], action: 'Unlock' },
+        ]
+    },
+    {
+        words: ['serra', 'blocca'],
+        patterns: [
+            { tokens: ['noun', '"con" / "a"', 'held'], action: 'Lock' },
+        ]
+    },
+    {
+        words: ['attacca', 'rompi', 'colpisci', 'combatti', 'uccidi', 'tortura', 'lotta', 'sfonda', 'ammazza'],
+        patterns: [
+            { tokens: ['noun', '"con"', 'held'], action: 'Attack' },
+            { tokens: ['noun'], action: 'Attack' },
+        ]
+    },
+    {
+        words: ['rispondi', 'grida', 'dì', 'dí'],
+        patterns: [
+            { tokens: ['topic', 'APrep', 'creature'], action: 'Answer' },
+        ]
+    },
+    {
+        words: ['parla'],
+        patterns: [
+            { tokens: ['APrep', 'creature', '"circa" / SuPrep / DiPrep', 'topic'], action: 'Tell' },
+            { tokens: ['APrep', 'creature'], action: 'Tell' },
+        ]
+    },
+    {
+        words: ['chiedi', 'domanda'],
+        patterns: [
+            { tokens: ['APrep', 'creature', '"circa" / SuPrep / DiPrep', 'topic'], action: 'Ask' },
+            { tokens: ['noun', 'APrep', 'creature'], action: 'AskFor' },
+            { tokens: ['APrep', 'creature', 'noun'], action: 'AskFor', reverse: true },
+            { tokens: ['APrep', 'creature'], action: 'Ask' },
+            { tokens: ['"scusa"', 'APrep', 'creature'], action: 'Sorry' },
+            { tokens: ['"scusa"'], action: 'Sorry' },
+        ]
+    },
+    {
+        words: ['mangia'],
+        patterns: [
+            { tokens: ['held'], action: 'Eat' },
+        ]
+    },
+    {
+        words: ['scala', 'sali', 'arrampicati', 'arrampica'],
+        patterns: [
+            { tokens: ['SuPrep', 'noun'], action: 'Climb' },
+            { tokens: ['noun'], action: 'Climb' },
+        ]
+    },
+    {
+        words: ['acquista', 'compra'],
+        patterns: [
+            { tokens: ['noun'], action: 'Buy' },
+        ]
+    },
+    {
+        words: ['schiaccia', 'spremi', 'spiaccica'],
+        patterns: [
+            { tokens: ['noun'], action: 'Squeeze' },
+        ]
+    },
+    {
+        words: ['scuoti', 'dondola'],
+        patterns: [
+            { tokens: ['noun'], action: 'Swing' },
+        ]
+    },
+    {
+        words: ['accarezza', 'tocca'],
+        patterns: [
+            { tokens: ['noun'], action: 'Touch' },
+        ]
+    },
+    {
+        words: ['riempi', 'colma'],
+        patterns: [
+            { tokens: ['noun'], action: 'Fill' },
+        ]
+    },
+    {
+        words: ['ripulisci', 'pulisci', 'strofina', 'spolvera', 'lucida', 'lustra'],
+        patterns: [
+            { tokens: ['noun'], action: 'Rub' },
+        ]
+    },
+    {
+        words: ['lega', 'fissa', 'congiungi', 'unisci', 'allaccia', 'annoda'],
+        patterns: [
+            { tokens: ['noun', 'APrep / "con"', 'noun'], action: 'Tie' },
+            { tokens: ['noun'], action: 'Tie' },
+        ]
+    },
+    {
+        words: ['brucia', 'incendia'],
+        patterns: [
+            { tokens: ['noun', '"con"', 'held'], action: 'Burn' },
+            { tokens: ['noun'], action: 'Burn' },
+        ]
+    },
+    {
+        words: ['taglia', 'affetta', 'sfronda', 'sfoltisci', 'spacca', 'strappa'],
+        patterns: [
+            { tokens: ['noun', '"con"', 'held'], action: 'Cut' },
+            { tokens: ['noun'], action: 'Cut' },
+        ]
+    },
+    {
+        words: ['scava'],
+        patterns: [
+            { tokens: ['noun', '"con"', 'held'], action: 'Dig' },
+            { tokens: ['noun'], action: 'Dig' },
+        ]
+    },
+    {
+        words: ['soffia'],
+        patterns: [
+            { tokens: ['InPrep ', 'held'], action: 'Blow' },
+            { tokens: ['held'], action: 'Blow' },
+        ]
+    },
+    {
+        words: ['risvegliati', 'risveglia', 'svegliati', 'sveglia'],
+        patterns: [
+            { tokens: ['creature'], action: 'WakeOther' },
+            { action: 'Wake' },
+        ]
+    },
+    {
+        words: ['odora', 'annusa', ],
+        patterns: [
+            { tokens: ['noun'], action: 'Smell' },
+            { action: 'Smell' },
+        ]
+    },
+    {
+        words: ['senti', 'ascolta', ],
+        patterns: [
+            { tokens: ['noun'], action: 'Listen' },
+            { action: 'Listen' },
+        ]
+    },
+    {
+        words: ['abbraccia', 'bacia'],
+        patterns: [
+            { tokens: ['creature'], action: 'Kiss' },
+            { tokens: ['noun'], action: 'KissOther' },
+        ]
+    },
+    {
+        words: ['assaggia', 'assapora', 'gusta'],
+        patterns: [
+            { tokens: ['noun'], action: 'Taste' },
+        ]
+    },
+    {
+        words: ['bevi', 'trangugia', 'sorseggia'],
+        patterns: [
+            { tokens: ['noun'], action: 'Drink' },
+        ]
+    },
+    {
+        words: ['attendi', 'z'],
+        patterns: [
+            { action: 'Wait' },
+        ]
+    },
+    {
+        words: ['sonnecchia', 'dormi', 'ronfa'],
+        patterns: [
+            { action: 'Sleep' },
+        ]
+    },
+    {
+        words: ['inventario', 'inv', 'i'],
+        patterns: [
+            { tokens: ['"esteso"'], action: 'InvAll' },
+            { tokens: ['"completo"'], action: 'InvWide' },
+            { action: 'Inv' },
+        ]
+    },
+    {
+        words: ['canta'],
+        patterns: [
+            { action: 'Sing' },
+        ]
+    },
+    {
+        words: ['nuota'],
+        patterns: [
+            { action: 'Swim' },
+        ]
+    },
+    {
+        words: ['prega'],
+        patterns: [
+            { action: 'Pray' },
+        ]
+    },
+    {
+        words: ['medita', 'rifletti'],
+        patterns: [
+            { tokens: ['SuPrep', 'topic'], action: 'Think' },
+            { action: 'Think' },
+        ]
+    },
+    {
+        words: ['salta'],
+        patterns: [
+            { tokens: ['SuPrep', 'noun'], action: 'Jump' },
+            { action: 'Jump' },
+        ]
+    },
+    {
+        words: ['guarda', 'vedi', 'g', 'l'],
+        patterns: [
+            { tokens: ['InPrep / SuPrep / "attraverso"', 'noun'], action: 'Search' },
+            { tokens: ['"sotto"', 'noun'], action: 'LookUnder' },
+            { tokens: ['topic', 'InPrep', 'noun'], action: 'Consult', reverse: true },
+            { tokens: ['noun'], action: 'Examine' },
+            { action: 'Look' },
+        ]
+    },
+    {
+        words: ['in', 'dentro'],
+        patterns: [
+            { action: 'GoIn' },
+        ]
+    },
     {
         patterns: [
             { tokens: ['noun=compass'], action: 'Go' },
         ]
-    },
-
-    /* 
-
-    Verb 'imposta'
-                    * noun                           -> Set
-                    * noun 'to' special              -> SetTo;
-    Verb 'gira' 'ruota'
-                    * noun                           -> Turn
-                    * noun 'a on'/'su on'            -> Switchon
-                    * noun 'a off'/'su off'          -> Switchoff;
-    Verb 'attiva' 'accendi'
-                    * noun                           -> Switchon;
-    Verb 'disattiva' 'spegni'
-                    * noun                           -> Switchoff;
-    Verb 'scassina' 'sblocca'
-                    * noun 'con'/'a' held            -> Unlock;
-    Verb 'serra' 'blocca'                 
-                    * noun 'con' held                -> Lock;
-    Verb 'attacca' 'rompi' 'colpisci' 'combatti'
-        'uccidi' 'tortura' 'lotta' 'sfonda' 'ammazza'  
-                    * noun                           -> Attack
-                    * noun 'con' held                -> Attack;
-    Verb 'aspetta' 'attendi' 'z//'
-                    *                                -> Wait;
-    Verb 'rispondi' 'd@`i' 'grida' 'di' 'di^' 'dici'
-                    * topic 'a'/'ad'/'all^'/'allo'/'alla'/'al'/'agli'/'ai'/
-                    'alle' creature          
-                                                    -> Answer;
-    Verb 'parla'
-                    * 'a'/'ad'/'all^'/'allo'/'alla'/'al'/'agli'/'ai'/
-                    'alle' creature 'circa'/'su'/'sul'/
-                    'sullo'/'sull^'/'sulla'/'sugli'/'sui'/
-                    'sulle'/'di'/'dello'/'della'/'dell^'/'dei'/
-                    'degli'/'delle' topic   
-                                                    -> Tell
-                    * 'a'/'ad'/'all^'/'allo'/'alla'/'al'/'agli'/'ai'/
-                    'alle' creature
-                                                    -> Tell;                                        
-    Verb 'chiedi' 'domanda'
-                    * 'a'/'ad'/'all^'/'allo'/'alla'/'al'/'agli'/'ai'/
-                    'alle' creature 'circa'/'su'/'sul'/'sui'/
-                    'sullo'/'sull^'/'sulla'/'sugli'/
-                    'sulle'/'di'/'dello'/'della'/'dell^'/'dei'/
-                    'degli'/'delle' topic   
-                                                    -> Ask
-                    * 'a'/'ad'/'all^'/'allo'/'alla'/'al'/'agli'/'ai'/
-                    'alle' creature                -> Ask
-                    * 'scusa'/'scuse'				 -> Sorry
-                    * 'a'/'ad'/'all^'/'allo'/'alla'/'al'/'agli'/'ai'/
-                    'alle' creature noun			 -> Askfor
-                    *  noun 'a'/'ad'/'all^'/'allo'/'alla'/'al'/'agli'/'ai'/
-                    'alle' creature           
-                                                    -> AskFor reverse;
-    Verb 'mangia'
-                    * held                           -> Eat;
-    Verb 'dormi' 'sonnecchia'
-                    *                                -> Sleep;
-    Verb 'pela'
-                    * noun                           -> Take;
-    Verb 'canta'
-                    *                                -> Sing;
-    Verb 'scala' 'sali' 'arrampica' 'arrampicati'
-                    * 'su'/'sul'/'sullo'/'sull^'/'sulla'/'sui'/
-                    'sugli'/'sulle' noun           
-                                                    -> Climb
-                    * noun                           -> Climb;
-    Verb 'compra' 'acquista'
-                    * noun                           -> Buy;
-    Verb 'schiaccia' 'spremi' 'spiaccica'
-                    * noun                           -> Squeeze;
-    Verb 'nuota'
-                    *                                -> Swim;
-    Verb 'scuoti'
-                    * noun                           -> Swing;
-    Verb 'soffia'
-                    * 'dentro'/'in'/'nel'/'nello'/'nell^'/'nella'/
-                    'negli'/'nelle'/'nei' held  
-                                                    -> Blow
-                    * held                           -> Blow;
-    Verb 'prega'
-                    *                                -> Pray;
-    Verb 'sveglia' 'svegliati' 'risveglia' 'risvegliati'
-                    *                                -> Wake
-                    * creature                       -> WakeOther;
-    Verb 'bacia' 'abbraccia'
-                    * creature                       -> Kiss;
-    Verb 'pensa' 'medita'
-                    *                                -> Think;
-    Verb 'annusa' 'odora'
-                    *                                -> Smell
-                    * noun                           -> Smell;
-    Verb 'senti' 'ascolta'
-                    *                                -> Listen
-                    * noun                           -> Listen;
-    Verb 'assaggia' 'assapora' 'gusta'
-                    * noun                           -> Taste;
-    Verb 'tocca' 'accarezza' 'palpa'
-                    * noun                           -> Touch;
-    Verb 'pulisci' 'strofina' 'spolvera' 'ripulisci' 'lucida' 'lustra'
-                    * noun                           -> Rub;
-    Verb 'lega' 'fissa' 'congiungi' 'unisci' 'allaccia' 'annoda'
-                    * noun                           -> Tie
-                    * noun 'a'/'ad'/'all^'/'allo'/'alla'/'al'/'agli'/'ai'/
-                    'alle'  noun                   -> Tie
-                    * noun 'con' noun                -> Tie;
-    Verb 'brucia' 'incendia'
-                    * noun                           -> Burn
-                    * noun 'con' held                -> Burn;
-    Verb 'bevi' 'trangugia' 'sorseggia'
-                    * noun                           -> Drink;
-    Verb 'riempi' 'colma'
-                    * noun                           -> Fill;
-    Verb 'taglia' 'affetta' 'sfronda' 'sfoltisci' 'spacca' 'strappa'
-                    * noun                           -> Cut
-                    * noun 'con' held                -> Cut;
-    Verb 'salta'
-                    *                                -> Jump
-                    * 'su'/'sul'/'sullo'/'sull^'/'sulla'/'sui'/
-                    'sugli'/'sulle'/'sopra' noun
-                                                    -> JumpOver;
-    Verb 'scava'    * noun                           -> Dig
-                    * noun 'con' held                -> Dig;
-
-
-     */
+    }
 ];
